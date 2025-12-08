@@ -10,17 +10,22 @@ let x = 100;
 let y = 100;
 let d = 100;
 let floor = y + 340;
+let xspeed = 5;
+let yspeed = 5;
 let mainCharacter = new MainCharacter(x + 100, y, d - 60);
 let plataform1 = new Plataform(x + 200, y + 260, 100, 20);
-let plataform2 = new Plataform(x - 100, y + 100, 100, 20);
-let plataform3 = new Plataform(x + 60, y - 60, 100, 20);
-let obstacle1 = new Obstacle(x - 55, y + 200, d - 80);
-let obstacle2 = new Obstacle(x + 55, y + 50, d - 80);
+// let plataform2 = new Plataform(x - 100, y + 100, 100, 20);
+// let plataform3 = new Plataform(x + 60, y - 60, 100, 20);
+// let obstacle1 = new Obstacle(x - 55, y + 200, d - 80);
+// let obstacle2 = new Obstacle(x + 55, y + 50, d - 80);
 
 function draw() {
   background(240);
 
   mainCharacter.draw();
+  if (mainCharacter.y === floor) {
+    yspeed = -5;
+  }
 
   //PLATFORM 1!
   plataform1.draw();
@@ -34,6 +39,7 @@ function draw() {
   if (plataform2.x + plataform2.h > 400) {
     plataform2.x = 0;
   }
+
   //PLATFORM 3!
   plataform3.draw();
   plataform3.x -= 10;
@@ -54,12 +60,21 @@ function draw() {
     obstacle2.x = 400;
   }
 
-  if (mainCharacter.y + mainCharacter.d <= 440) {
+  if (
+    mainCharacter.y + mainCharacter.d < 450 &&
+    !mainCharacter.isOnPlat(mainCharacter, plataform1)
+  ) {
     mainCharacter.y += 15;
   }
 
   //FLOOR
   line(0, floor, 400, floor);
+}
+
+function keyPressed() {
+  if (mainCharacter.y + mainCharacter.d >= 450) {
+    mainCharacter.y = mainCharacter.y - 200;
+  }
 }
 
 /* we need: 

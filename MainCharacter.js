@@ -14,7 +14,7 @@ export default class MainCharacter{
       circle(this.x, this.y, this.d);
     }
     isOnPlat(mainCharacter, plataform) {
-      if (maincharacter.x >= plataform.x && maincharacter.y === plataform.y) {
+      if (mainCharacter.x < plataform.x && mainCharacter.y === plataform.y) {
         return true;
       } //hopefully the character should be able to stand over the plataforms
       else {
