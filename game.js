@@ -1,4 +1,4 @@
-import platform from "platform";
+ import platform from "platform";
 import { Character } from "./character";
 
 function setup() {
@@ -24,7 +24,7 @@ function draw() {
     character.draw();
     platform.draw();
 
-    platform.x -= 10;
+    platform.x -= 10  ;
     if (platform.x + platform.w < 0) {
         platform.x = 500;
     }

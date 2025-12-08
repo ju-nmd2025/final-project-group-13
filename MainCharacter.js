@@ -3,17 +3,18 @@
  so we won't need to have MAAAAAANY functions and we can just call what we need*/
 
 //our character is a circle: it has x, y and diameter (x, y d)//
-export default function Character() {
-  function Character(x, y, d) {
+export default class MainCharacter{
+  constructor(x, y, d) {
     this.x = x;
     this.y = y;
     this.d = d;
-    function drawBall() {
-      fill("blue");
+  }
+    draw(){
+      fill("orange");
       circle(this.x, this.y, this.d);
     }
-    function isOnPlat(Character, plataform) {
-      if (Character.x >= plataform.x && Character.y === plataform.y) {
+    isOnPlat(mainCharacter, plataform) {
+      if (maincharacter.x >= plataform.x && maincharacter.y === plataform.y) {
         return true;
       } //hopefully the character should be able to stand over the plataforms
       else {
@@ -21,4 +22,4 @@ export default function Character() {
       }
     }
   }
-}
+

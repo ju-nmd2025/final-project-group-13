@@ -10,4 +10,5 @@ export let platform = {
         rect(this.x, this.y, this.w, this.h);
         pop();
     },
+   
 };
