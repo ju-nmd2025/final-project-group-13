@@ -1,13 +1,13 @@
-//our character is a circle: it has x, y and diameter (x, y d)//
 export default class MainCharacter {
-  constructor(x, y, d) {
+  constructor(x, y, r) {
     this.x = x;
     this.y = y;
-    this.d = d;
+    this.r = r;
   }
   draw() {
     fill("orange");
-    circle(this.x, this.y, this.d);
+
+    ellipse(this.x, this.y, this.r, this.r);
   }
   isOnPlat(mainCharacter, plataform) {
     if (
@@ -18,7 +18,6 @@ export default class MainCharacter {
     ) {
       mainCharacter.y === plataform.y;
       return true;
-    
     } //hopefully the character should be able to stand over the plataforms
     else {
       return false;

@@ -1,6 +1,3 @@
-/*we are going to create the plataforms here.
-the we are going to call them inside the game. */
-
 export default class Plataform {
   constructor(x, y, w, h) {
     this.x = x;
@@ -11,5 +8,10 @@ export default class Plataform {
   draw() {
     fill("white");
     rect(this.x, this.y, this.w, this.h);
+  }
+
+  reset() {
+    this.x = width + random(50, 200);
+    this.y = random(200, 350);
   }
 }
