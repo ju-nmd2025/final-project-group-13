@@ -8,7 +8,7 @@ let canvasWidth = 400;
 let canvasHeight = 500;
 let yspeed = 0;
 let floor = 450;
-let score;
+let score = 0;
 let gap;
 let gameOver = false;
 let gameStarted = false;
@@ -93,7 +93,7 @@ function endScreen() {
   textAlign(CENTER);
   text("GAME OVER", x + 90, y);
   textSize(20);
-  text("SCORE", x + 90, y + 100);
+  text("SCORE: " + score, x + 90, y + 100);
   text("press to restart", x + 90, y + 150);
 }
 // function drawGameOver() {
@@ -147,6 +147,7 @@ function logic() {
       vy > 0
     ) {
       vy = -20;
+      score++;
     }
   }
   updatePlat();
@@ -159,6 +160,7 @@ function logic() {
     //for (let o of obstacles) o.y+=dy
   }
   youDie(mainCharacter);
+  drawScore();
 }
 
 function youDie(mainCharacter) {
@@ -204,6 +206,11 @@ function resetGame() {
   }
 }
 
+function drawScore() {
+  fill("black");
+  textSize(18);
+  text("score: " + score, x + 100, y - 50);
+}
 /* we need:  
   
   -make plataforms that moves 
