@@ -18,10 +18,9 @@ let whichscreen = "start";
 let jumpForce = -15;
 
 let mainCharacter = new MainCharacter(x + 100, y + 100, r, r);
-let plataform1 = [
+let platforms = [
   new Plataform(x + 50, y + 260, 100, 20),
   new Plataform(x - 40, y + 90, 100, 20),
-  // new Plataform(x + 50, y - 60, 100, 20),
 ];
 
 function setup() {
@@ -34,8 +33,8 @@ function draw() {
   drawStart();
 }
 
-function fallBall(mainCharacter, plataform1) {
-  for (const plataform of plataform1) {
+function fallBall(mainCharacter, platforms) {
+  for (const plataform of platforms) {
     if (mainCharacter.isOnPlat(mainCharacter, plataform)) {
       return false;
     }
@@ -61,8 +60,8 @@ function keyPressed() {
 function drawStart() {
   if (whichscreen === "start") {
     startScreen();
-  } else if (whichscreen === "magic") {
-    magic();
+  } else if (whichscreen === "logic") {
+    logic();
   } else {
     endScreen();
   }
@@ -75,7 +74,7 @@ function startScreen() {
   textSize(20);
   text("use arrows keys to move", x + 100, y + 100);
   if (keyIsPressed) {
-    whichscreen = "magic";
+    whichscreen = "logic";
   }
 
   //Button
@@ -87,23 +86,23 @@ function startScreen() {
 }
 function endScreen() {
   background("orange");
+  // fill("white");
+  // rect(x - 10, y - 35, 200, 50);
   fill("white");
-  rect(x - 10, y - 35, 200, 50);
-  fill("black");
   textSize(30);
   textAlign(CENTER);
   text("GAME OVER", x + 90, y);
   textSize(20);
   text("SCORE", x + 90, y + 100);
-  text("press SPACE to restart", x + 90, y + 150);
+  text("press to restart", x + 90, y + 150);
 }
-function drawGameOver() {
-  fill("black");
-  textSize(40);
-  textAlign(CENTER);
-  text("FAILED", 400 / 2, 500 / 2 - 60);
-}
-function magic() {
+// function drawGameOver() {
+//   fill("black");
+//   textSize(40);
+//   textAlign(CENTER);
+//   text("FAILED", 400 / 2, 500 / 2 - 60);
+// }
+function logic() {
   vy += gravity;
   mainCharacter.y += vy;
 
@@ -112,7 +111,7 @@ function magic() {
     return;
   }
 
-  for (let p of plataform1) {
+  for (let p of platforms) {
     if (
       mainCharacter.x > p.x &&
       mainCharacter.x < p.x + p.w &&
@@ -127,7 +126,7 @@ function magic() {
   mainCharacter.draw();
   mainCharacter.y += yspeed;
 
-  for (const plataform of plataform1) {
+  for (const plataform of platforms) {
     plataform.draw();
     // plataform.x -= 1;
     // if (plataform.x + plataform.h < 0) {
@@ -139,7 +138,7 @@ function magic() {
     }
   }
 
-  for (let p of plataform1) {
+  for (let p of platforms) {
     if (
       mainCharacter.x > p.x &&
       mainCharacter.x < p.x + p.w &&
@@ -156,7 +155,7 @@ function magic() {
   if (mainCharacter.y < 200) {
     const dy = 200 - mainCharacter.y;
     mainCharacter.y = 200;
-    for (let p of plataform1) p.y += dy;
+    for (let p of platforms) p.y += dy;
     //for (let o of obstacles) o.y+=dy
   }
   youDie(mainCharacter);
@@ -169,14 +168,14 @@ function youDie(mainCharacter) {
 }
 
 function updatePlat() {
-  for (let i = 0; i < plataform1.length; i++) {
-    let p = plataform1[i];
+  for (let i = 0; i < platforms.length; i++) {
+    let p = platforms[i];
     p.draw();
     if (p.y > height) {
-      let highest = plataform1[0];
-      for (let j = 1; j < plataform1.length; j++) {
-        if (plataform1[j].y < highest.y) {
-          highest = plataform1[j];
+      let highest = platforms[0];
+      for (let j = 1; j < platforms.length; j++) {
+        if (platforms[j].y < highest.y) {
+          highest = platforms[j];
         }
       }
       p.generatePlat(highest);
@@ -197,9 +196,9 @@ function resetGame() {
   mainCharacter.y = height / 2;
   vy = 0;
 
-  plataform1 = [];
+  platforms = [];
   for (let i = 0; i < 5; i++) {
-    plataform1.push(
+    platforms.push(
       new Plataform(random(0, width - 80), height - i * 100, 80, 20)
     );
   }
@@ -211,4 +210,3 @@ function resetGame() {
   - make plataforms that desapear
   -obstacles that kill us YAY!
   */
-
