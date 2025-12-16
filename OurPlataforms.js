@@ -10,8 +10,8 @@ export default class Plataform {
     rect(this.x, this.y, this.w, this.h);
   }
 
-  reset() {
-    this.x = width + random(50, 200);
-    this.y = random(200, 350);
+  generatePlat() {
+    this.x = random(0, canvasWidth - this.w);
+    this.y = lastPlat.y - random(60, 120);
   }
 }
