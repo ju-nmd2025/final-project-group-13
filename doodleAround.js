@@ -28,7 +28,6 @@ function draw() {
   background(240);
   drawStart();
 }
-//jhgjghg
 
 function fallBall(mainCharacter, platforms) {
   for (const plataform of platforms) {
@@ -44,11 +43,11 @@ function fallBall(mainCharacter, platforms) {
 
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
-    mainCharacter.x -= 10;
+    mainCharacter.x -= 15;
   } else if (keyCode === RIGHT_ARROW) {
-    mainCharacter.x += 10;
+    mainCharacter.x += 15;
   }
-  if (gameOver && keyCode === "r") {
+  if (gameOver && key === "r") {
     gameOver = false;
     // resetGame();
     // loop();
@@ -110,7 +109,7 @@ function logic() {
       mainCharacter.x < p.x + p.w &&
       mainCharacter.y + mainCharacter.r > p.y &&
       mainCharacter.y + mainCharacter.r < p.y + 10 &&
-      vy < 0
+      vy > 0
     ) {
       vy = -20;
       score++;

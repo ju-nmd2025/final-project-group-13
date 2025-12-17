@@ -24,7 +24,7 @@ export default class Plataform {
     if (this.broken) {
       return;
     }
-    if ((this, type === "breaking")) {
+    if (this.type === "breaking") {
       fill("red");
     } else if (this.type === "moving") {
       fill("gray");
@@ -50,7 +50,7 @@ export default class Plataform {
     } else if (r < 0.8) {
       this.type = "breaking";
     } else {
-      this, (type = "moving");
+      this.type = "moving";
     }
   }
 }
