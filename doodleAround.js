@@ -1,5 +1,5 @@
-import { MainCharacter } from "./Ball";
-import { Plataform } from "./platforms";
+import { MainCharacter } from "./MainCharacter";
+import { Plataform } from "./OurPlataforms";
 
 let x = 100;
 let y = 100;
@@ -7,10 +7,9 @@ let r = 50;
 let canvasWidth = 400;
 let canvasHeight = 500;
 let floor = 450;
-let score;
+let score = 0;
 let gap;
 let gameOver = false;
-let gameStarted = false;
 let gravity = 0.5;
 let vy = 0;
 let whichscreen = "start";
@@ -29,6 +28,7 @@ function draw() {
   background(240);
   drawStart();
 }
+//jhgjghg
 
 function fallBall(mainCharacter, platforms) {
   for (const plataform of platforms) {
@@ -50,8 +50,8 @@ function keyPressed() {
   }
   if (gameOver && keyCode === "r") {
     gameOver = false;
-    resetGame();
-    loop();
+    // resetGame();
+    // loop();
   }
 }
 function drawStart() {
@@ -83,15 +83,17 @@ function startScreen() {
 }
 function endScreen() {
   background("orange");
-
+  // fill("white");
+  // rect(x - 10, y - 35, 200, 50);
   fill("white");
   textSize(30);
   textAlign(CENTER);
   text("GAME OVER", x + 90, y);
   textSize(20);
-  text("SCORE", x + 90, y + 100);
+  text("SCORE: " + score, x + 90, y + 100);
   text("press to restart", x + 90, y + 150);
 }
+
 function logic() {
   vy += gravity;
   mainCharacter.y += vy;
@@ -100,14 +102,15 @@ function logic() {
     endScreen();
     return;
   }
+
   for (let p of platforms) {
     p.update();
     if (
       mainCharacter.x > p.x &&
       mainCharacter.x < p.x + p.w &&
       mainCharacter.y + mainCharacter.r > p.y &&
-      mainCharacter.y + mainCharacter.y < p.y + 10 &&
-      vy > 0
+      mainCharacter.y + mainCharacter.r < p.y + 10 &&
+      vy < 0
     ) {
       vy = -20;
       score++;
@@ -121,9 +124,11 @@ function logic() {
   if (mainCharacter.y < 200) {
     const dy = 200 - mainCharacter.y;
     mainCharacter.y = 200;
-    for (let p of platforms) p.y += dy;
-    //for (let o of obstacles) o.y+=dy
+    for (let p of platforms) {
+      p.y += dy;
+    }
   }
+
   updatePlat();
 
   mainCharacter.draw();
@@ -143,7 +148,7 @@ function youDie(mainCharacter) {
 function updatePlat() {
   for (let p of platforms) {
     if (p.y > height) {
-      let highest = platforms.reduce((a, b) => (a.y < a.y ? a : b));
+      let highest = platforms.reduce((a, b) => (a.y < b.y ? a : b));
       p.generatePlat(highest, width);
     }
   }
@@ -173,5 +178,5 @@ function resetGame() {
 function drawScore() {
   fill("black");
   textSize(18);
-  text("SCORE: " + score, x + 100, y - 50);
+  text("score: " + score, x + 100, y - 50);
 }
