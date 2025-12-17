@@ -39,9 +39,10 @@ export default class Plataform {
       this.broken = true;
     }
   }
-  generatePlat(lastPlat, canvasWidth) {
+
+  generatePlat(lastPlat, canvasWidth, gap) {
     this.x = random(0, canvasWidth - this.w);
-    this.y = lastPlat.y - random(60, 120);
+    this.y = lastPlat.y - gap;
 
     this.broken = false;
     let r = random();

@@ -8,7 +8,7 @@ let canvasWidth = 400;
 let canvasHeight = 500;
 let floor = 450;
 let score = 0;
-let gap;
+let gap = 120;
 let gameOver = false;
 let gravity = 0.5;
 let vy = 0;
@@ -148,8 +148,8 @@ function updatePlat() {
   for (let p of platforms) {
     if (p.y > height) {
       let highest = platforms.reduce((a, b) => (a.y < b.y ? a : b));
-      p.generatePlat(highest, width);
-    }
+      p.generatePlat(highest, width, gap);
+    } 
   }
 }
 
