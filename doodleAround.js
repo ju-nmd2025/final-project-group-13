@@ -1,5 +1,5 @@
-import { MainCharacter } from "./MainCharacter";
-import { Plataform } from "./OurPlataforms";
+import { MainCharacter } from "./Ball";
+import { Plataform } from "./platforms";
 
 let x = 100;
 let y = 100;
