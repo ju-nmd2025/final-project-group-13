@@ -6,16 +6,13 @@ let y = 100;
 let r = 50;
 let canvasWidth = 400;
 let canvasHeight = 500;
-let yspeed = 0;
 let floor = 450;
 let score = 0;
 let gap;
 let gameOver = false;
-let gameStarted = false;
 let gravity = 0.5;
 let vy = 0;
 let whichscreen = "start";
-let jumpForce = -15;
 
 let mainCharacter = new MainCharacter(x + 100, y + 100, r, r);
 let platforms = [
@@ -25,13 +22,13 @@ let platforms = [
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
-  score = 0;
 }
 
 function draw() {
   background(240);
   drawStart();
 }
+//jhgjghg
 
 function fallBall(mainCharacter, platforms) {
   for (const plataform of platforms) {
@@ -53,8 +50,8 @@ function keyPressed() {
   }
   if (gameOver && keyCode === "r") {
     gameOver = false;
-    resetGame();
-    loop();
+    // resetGame();
+    // loop();
   }
 }
 function drawStart() {
@@ -96,12 +93,7 @@ function endScreen() {
   text("SCORE: " + score, x + 90, y + 100);
   text("press to restart", x + 90, y + 150);
 }
-// function drawGameOver() {
-//   fill("black");
-//   textSize(40);
-//   textAlign(CENTER);
-//   text("FAILED", 400 / 2, 500 / 2 - 60);
-// }
+
 function logic() {
   vy += gravity;
   mainCharacter.y += vy;
@@ -112,6 +104,7 @@ function logic() {
   }
 
   for (let p of platforms) {
+    p.update();
     if (
       mainCharacter.x > p.x &&
       mainCharacter.x < p.x + p.w &&
@@ -119,48 +112,31 @@ function logic() {
       mainCharacter.y + mainCharacter.r < p.y + 10 &&
       vy < 0
     ) {
-      vy = jumpForce;
-    }
-  }
-
-  mainCharacter.draw();
-  mainCharacter.y += yspeed;
-
-  for (const plataform of platforms) {
-    plataform.draw();
-    // plataform.x -= 1;
-    // if (plataform.x + plataform.h < 0) {
-    //   plataform.x = 400;
-    // }
-
-    if (plataform.y + plataform.h < 0) {
-      plataform.generatePlat();
-    }
-  }
-
-  for (let p of platforms) {
-    if (
-      mainCharacter.x > p.x &&
-      mainCharacter.x < p.x + p.w &&
-      mainCharacter.y + mainCharacter.r > p.y &&
-      mainCharacter.y + mainCharacter.r < p.y + 10 && //p.h en vez de +10?
-      vy > 0
-    ) {
       vy = -20;
       score++;
+      if (p.type === "breaking") {
+        p.broken = true;
+      }
     }
   }
-  updatePlat();
 
   //MOVING BACKGROUND
   if (mainCharacter.y < 200) {
     const dy = 200 - mainCharacter.y;
     mainCharacter.y = 200;
-    for (let p of platforms) p.y += dy;
-    //for (let o of obstacles) o.y+=dy
+    for (let p of platforms) {
+      p.y += dy;
+    }
   }
-  youDie(mainCharacter);
+
+  updatePlat();
+
+  mainCharacter.draw();
+  for (let p of platforms) {
+    p.draw();
+  }
   drawScore();
+  youDie(mainCharacter);
 }
 
 function youDie(mainCharacter) {
@@ -170,17 +146,10 @@ function youDie(mainCharacter) {
 }
 
 function updatePlat() {
-  for (let i = 0; i < platforms.length; i++) {
-    let p = platforms[i];
-    p.draw();
+  for (let p of platforms) {
     if (p.y > height) {
-      let highest = platforms[0];
-      for (let j = 1; j < platforms.length; j++) {
-        if (platforms[j].y < highest.y) {
-          highest = platforms[j];
-        }
-      }
-      p.generatePlat(highest);
+      let highest = platforms.reduce((a, b) => (a.y < b.y ? a : b));
+      p.generatePlat(highest, width);
     }
   }
 }
@@ -211,9 +180,3 @@ function drawScore() {
   textSize(18);
   text("score: " + score, x + 100, y - 50);
 }
-/* we need:  
-  
-  -make plataforms that moves 
-  - make plataforms that desapear
-  -obstacles that kill us YAY!
-  */
