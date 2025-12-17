@@ -29,28 +29,10 @@ function draw() {
   drawStart();
 }
 
-function fallBall(mainCharacter, platforms) {
-  for (const plataform of platforms) {
-    if (mainCharacter.isOnPlat(mainCharacter, plataform)) {
-      return false;
-    }
-    if (mainCharacter.y + mainCharacter.h < floor) {
-      return true;
-    }
-    return false;
-  }
-}
-
 function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
-    mainCharacter.x -= 15;
-  } else if (keyCode === RIGHT_ARROW) {
-    mainCharacter.x += 15;
-  }
-  if (gameOver && key === "r") {
-    gameOver = false;
-    // resetGame();
-    // loop();
+  if (gameOver) {
+    resetGame();
+    return;
   }
 }
 function drawStart() {
@@ -94,6 +76,12 @@ function endScreen() {
 }
 
 function logic() {
+  if (keyIsDown(LEFT_ARROW)) {
+    mainCharacter.x -= 15;
+  } else if (keyIsDown(RIGHT_ARROW)) {
+    mainCharacter.x += 15;
+  }
+
   vy += gravity;
   mainCharacter.y += vy;
 
@@ -131,6 +119,11 @@ function logic() {
   updatePlat();
 
   mainCharacter.draw();
+  if (mainCharacter.x < 0) {
+    mainCharacter.x = 400;
+  } else if (mainCharacter.x > 400) {
+    mainCharacter.x = 0;
+  }
   for (let p of platforms) {
     p.draw();
   }
@@ -149,13 +142,7 @@ function updatePlat() {
     if (p.y > height) {
       let highest = platforms.reduce((a, b) => (a.y < b.y ? a : b));
       p.generatePlat(highest, width, gap);
-    } 
-  }
-}
-
-function mousePressed() {
-  if (gameOver) {
-    resetGame();
+    }
   }
 }
 
