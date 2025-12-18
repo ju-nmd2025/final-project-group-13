@@ -1,4 +1,4 @@
-import { MainCharacter } from "./Ball";
+import { MainCharacter } from "./ball";
 import { Plataform } from "./platforms";
 
 let x = 100;
@@ -25,7 +25,7 @@ function setup() {
 }
 
 function draw() {
-  background(240);
+  background("Red");
   drawStart();
 }
 
@@ -45,33 +45,35 @@ function drawStart() {
   }
 }
 function startScreen() {
-  fill("orange");
+  fill("Black");
   textSize(30);
   textAlign(CENTER);
-  text("Just Doodling Around ", x + 100, y + 40);
+  text("Let's help Dean", x + 100, y + 40);
+  text("escape hell!", x + 100, y + 70);
   textSize(20);
-  text("use arrows keys to move", x + 100, y + 100);
+  text("use arrows keys to move", x + 100, y + 120);
   if (keyIsPressed) {
     whichscreen = "logic";
   }
 
   //Button
-  fill("orange");
+  fill("Black");
   rect(x, y + 145, 200, 50);
   fill("white");
   textSize(30);
   text("START", 400 / 2, 500 / 2 + 30);
 }
 function endScreen() {
-  background("orange");
+  background("Red");
   // fill("white");
   // rect(x - 10, y - 35, 200, 50);
-  fill("white");
+  fill("Black");
   textSize(30);
   textAlign(CENTER);
-  text("GAME OVER", x + 90, y);
+  text("Oopsie! You died!", x + 90, y);
+  text("Better luck next time))", x + 90, y + 100);
   textSize(20);
-  text("SCORE: " + score, x + 90, y + 100);
+  text("SCORE: " + score, x + 90, y + 130);
   text("press to restart", x + 90, y + 150);
 }
 
@@ -84,6 +86,11 @@ function logic() {
 
   vy += gravity;
   mainCharacter.y += vy;
+
+  if (score >= 6) {
+    youWon();
+    return;
+  }
 
   if (gameOver) {
     endScreen();
@@ -165,4 +172,11 @@ function drawScore() {
   fill("black");
   textSize(18);
   text("score: " + score, x + 100, y - 50);
+}
+
+function youWon() {
+  fill("black");
+  textSize(18);
+  text("Yippie!! You escaped hell!!", x + 90, y + 70);
+  text("press to play again", x + 90, y + 150);
 }

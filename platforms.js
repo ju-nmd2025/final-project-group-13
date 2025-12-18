@@ -25,7 +25,7 @@ export default class Plataform {
       return;
     }
     if (this.type === "breaking") {
-      fill("red");
+      fill("black");
     } else if (this.type === "moving") {
       fill("gray");
     } else {
