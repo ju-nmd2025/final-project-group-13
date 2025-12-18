@@ -88,7 +88,7 @@ function logic() {
   vy += gravity;
   mainCharacter.y += vy;
 
-  if (score >= 20) {
+  if (score >= 100) {
     youWon();
     return;
   }
@@ -181,8 +181,21 @@ function youWon() {
   text("Yippie!! You escaped hell!!", x + 90, y + 70);
   text("press to play again", x + 90, y + 150);
   if (keyIsPressed) {
-    //drawStart();
+
     resetGame();
-    ///whichscreen = "start";
+
   }
 }
+
+// All your other code is above!
+window.setup = setup;
+
+window.draw = draw;
+
+window.addEventListener("click", function (event) {
+    mousePressed();
+});
+
+window.addEventListener("keydown", function (event) {
+    keyPressed();
+});
