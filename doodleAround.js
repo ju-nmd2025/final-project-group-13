@@ -31,6 +31,7 @@ function draw() {
 
 function keyPressed() {
   if (gameOver) {
+    //&& youWon) {
     resetGame();
     return;
   }
@@ -87,7 +88,7 @@ function logic() {
   vy += gravity;
   mainCharacter.y += vy;
 
-  if (score >= 6) {
+  if (score >= 10) {
     youWon();
     return;
   }
@@ -179,4 +180,10 @@ function youWon() {
   textSize(18);
   text("Yippie!! You escaped hell!!", x + 90, y + 70);
   text("press to play again", x + 90, y + 150);
+  if (keyIsPressed) {
+    //drawStart();
+    resetGame();
+    ///whichscreen = "start";
+  }
+  ///resetGame();
 }
