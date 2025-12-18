@@ -88,7 +88,7 @@ function logic() {
   vy += gravity;
   mainCharacter.y += vy;
 
-  if (score >= 10) {
+  if (score >= 20) {
     youWon();
     return;
   }
@@ -185,5 +185,4 @@ function youWon() {
     resetGame();
     ///whichscreen = "start";
   }
-  ///resetGame();
 }
