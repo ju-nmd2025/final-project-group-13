@@ -1,4 +1,4 @@
-export default class MainCharacter {
+export class MainCharacter {
   constructor(x, y, r) {
     this.x = x;
     this.y = y;

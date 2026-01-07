@@ -1,5 +1,5 @@
-export default class Plataform {
-  constructor(x, y, w, h, type) {
+export class Plataform {
+  constructor(x, y, w, h, type, dx) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -9,7 +9,7 @@ export default class Plataform {
 
     this.broken = false;
 
-    this.dx = random([-1, 1]) * random(0.5, 1.5);
+    this.dx = dx;
   }
 
   update() {

@@ -1,5 +1,5 @@
-import { MainCharacter } from "./ball";
-import { Plataform } from "./platforms";
+import { MainCharacter } from "./ball.js";
+import { Plataform } from "./platforms.js";
 
 let x = 100;
 let y = 100;
@@ -15,13 +15,28 @@ let vy = 0;
 let whichscreen = "start";
 
 let mainCharacter = new MainCharacter(x + 100, y + 100, r, r);
-let platforms = [
-  new Plataform(x + 50, y + 260, 100, 20),
-  new Plataform(x - 40, y + 90, 100, 20),
-];
+let platforms;
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
+  platforms = [
+    new Plataform(
+      x + 50,
+      y + 260,
+      100,
+      20,
+      "",
+      random([-1, 1]) * random(0.5, 1.5),
+    ),
+    new Plataform(
+      x - 40,
+      y + 90,
+      100,
+      20,
+      "",
+      random([-1, 1]) * random(0.5, 1.5),
+    ),
+  ];
 }
 
 function draw() {
@@ -164,7 +179,14 @@ function resetGame() {
   platforms = [];
   for (let i = 0; i < 5; i++) {
     platforms.push(
-      new Plataform(random(0, width - 80), height - i * 100, 80, 20)
+      new Plataform(
+        random(0, width - 80),
+        height - i * 100,
+        80,
+        20,
+        "",
+        random([-1, 1]) * random(0.5, 1.5),
+      ),
     );
   }
 }
@@ -181,9 +203,7 @@ function youWon() {
   text("Yippie!! You escaped hell!!", x + 90, y + 70);
   text("press to play again", x + 90, y + 150);
   if (keyIsPressed) {
-
     resetGame();
-
   }
 }
 
@@ -192,10 +212,10 @@ window.setup = setup;
 
 window.draw = draw;
 
-window.addEventListener("click", function (event) {
-    mousePressed();
-});
+// window.addEventListener("click", function (event) {
+//   mousePressed();
+// });
 
 window.addEventListener("keydown", function (event) {
-    keyPressed();
+  keyPressed();
 });
